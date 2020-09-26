@@ -1,0 +1,111 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="mobile_server.list">
+      <field name="name">mobile_server list</field>
+      <field name="model">mobile_server.mobile_server</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="mobile_server.action_window">
+      <field name="name">mobile_server window</field>
+      <field name="res_model">mobile_server.mobile_server</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="mobile_server.action_server">
+      <field name="name">mobile_server server</field>
+      <field name="model_id" ref="model_mobile_server_mobile_server"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Settings Form -->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">mobile.server.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Mobile Server" string="Mobile Server" data-key="mobile_server"><!-- data-key defines which settings will be selected -->
+                        <h2>Mobile Server Settings</h2>
+                        <group>
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-xs-12 col-md-12 o_setting_box">
+                                    <div class="o_setting_right_pane">
+                                        <label for="allowed_modules_ids" string="Modules" class="o_form_label" />
+                                        <field name="allowed_modules_ids"
+                                               widget="many2many_tags"
+                                               placeholder="Select allowed modules for mobile" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-12 o_setting_box">
+                                    <div class="o_setting_right_pane">
+                                        <label for="meta" string="Meta Data" class="o_form_label" />
+                                        <field name="meta" placeholder="{'example':'extra data'}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                    </div>
+            </xpath>
+        </field>
+
+    </record>
+
+    <!-- Action settings -->
+    <record id="action_mobile_server_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module':'mobile_server'}</field>
+    </record>
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="mobile_server" id="mobile_server.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="mobile_server.menu_1" parent="mobile_server.menu_root"/>
+    <menuitem name="Menu 2" id="mobile_server.menu_2" parent="mobile_server.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="mobile_server.menu_1_list" parent="mobile_server.menu_1"
+              action="mobile_server.action_window"/>
+    <menuitem name="Server to list" id="mobile_server" parent="mobile_server.menu_2"
+              action="mobile_server.action_server"/>
+    -->
+
+    <menuitem
+            name="Mobile Server"
+            id="mobile_server.settings"
+            action="action_mobile_server_settings"
+            sequence="100" />
+  </data>
+</odoo>
