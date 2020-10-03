@@ -5,10 +5,11 @@ import odoo
 from odoo import models, fields, api
 from ast import literal_eval
 
+
 class MobileServerSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    allowed_modules_ids = fields.Many2many('mobile_server.mobile_module', String='Modules')
+    allowed_modules_ids = fields.Many2many('mobile_server.mobile_module', String='Modules', ondelete='cascade')
     meta = fields.Text('Meta Data', help='This is a JSON meta data which will be sent to the mobile')
 
     @api.multi
@@ -56,16 +57,14 @@ class MobileServerModule(models.Model):
     #         record.url = "https://www.odoo.com/apps/modules/%s.0/%s/" % (
     #             record.demo_plan_id.server_id.odoo_version, record.technical_name)
 
-    @api.model_cr
-    def _register_hook(self):
-        count = self.env['mobile_server.mobile_module'].search_count([])
-        if count > 0:
-            recs = self.env['mobile_server.mobile_module'].search([])
-            for rec in recs:
-                rec.unlink()
+    @api.model
+    def createModules(self):
         modules = self.env['ir.module.module'].search([('application', '=', True),
                                                        ('state', '=', 'installed')])
         for module in modules:
             self.create({'technical_name': module.name, 'shortdesc': module.shortdesc})
 
-
+    @api.model_cr
+    def _register_hook(self):
+        if self.search_count([]) == 0:
+            self.createModules()
