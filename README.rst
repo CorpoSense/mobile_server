@@ -1,17 +1,15 @@
-===================================
 # Odoo Mobile Server
-===================================
 
 - This addon allows the communication between Odoo and Mobile applications
 
-===============
-# Installation
-===============
+## Installation
 
-- Copy the module's folder to your addon directory, and install the addon from Odoo.
+- Copy the module's folder to your custom addons directory, then run and update the list of applications, finally install the addon.
  
-===============
-# Configuration
-===============
+## Configuration
 
-- You can find the configuration in: "Mobile Server / Configuration" menu.
+- You can find the configuration setting at: `Mobile Server / Configuration` menu.
+
+## License
+MIT
+
