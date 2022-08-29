@@ -9,14 +9,14 @@
     """,
 
     'author': "CorpoSense",
-    'website': "http://www.corposense.com",
-    'license': "AGPL-3",
+    'website': "https://www.corposense.com",
+    'license': "MIT",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/11.0/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Tools',
-    'version': '11.0.1.0.0',
+    'version': '11.0.1.0.1',
 
     # any module necessary for this one to work correctly
     'depends': ['base'],
